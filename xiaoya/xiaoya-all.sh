@@ -20,7 +20,7 @@ IMAGE_PROXY="${IMAGE_PROXY:=}"
 # 服务镜像
 IMAGE_TAG="${VERSION:-latest}"
 # 服务下载地址
-DOWNLOAD_URL="https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya"
+DOWNLOAD_URL="/home/songyabin"
 
 # 欢迎信息
 echo "欢迎使用xiaoya服务部署脚本"
@@ -183,10 +183,10 @@ fi
 cd "$install_path"
 
 echo "开始生成配置文件docker-compose${service_type}.yml..."
-curl -#Lo "$install_path/docker-compose.yml" "${DOWNLOAD_URL}/docker-compose${service_type}.yml"
-if [ ! -f "$install_path/env" ]; then
-  curl -#Lo "$install_path/env" "${DOWNLOAD_URL}/env"
-fi
+
+cp ${DOWNLOAD_URL}/docker-compose${service_type}.yml $install_path/docker-compose.yml
+cp ${DOWNLOAD_URL}/env $install_path/env
+
 sedsh "s#ALIYUN_TOKEN=.*#ALIYUN_TOKEN=$token#g" env
 sedsh "s#ALIYUN_OPEN_TOKEN=.*#ALIYUN_OPEN_TOKEN=$open_token#g" env
 sedsh "s#ALIYUN_FOLDER_ID=.*#ALIYUN_FOLDER_ID=$folder_id#g" env
